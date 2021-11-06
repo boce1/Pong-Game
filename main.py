@@ -10,6 +10,7 @@ pygame.display.set_caption("Pong Game")
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
 font = pygame.font.SysFont("Consolas", 60)
+font2 = pygame.font.SysFont("Consolas", 20)
 
 def main(win):
     #window.fill(BLACK)
@@ -33,20 +34,24 @@ x = WIDTH // 2 - main_screen_message.get_width() // 2
 y = HEIGHT // 2 - main_screen_message.get_height() // 2
 center_y = HEIGHT // 2 - main_screen_message.get_height() // 2
 speed = 0.5
-def main_menu(win, mes):
+controls_message = font2.render("Player1: up-\"W\", down-\"S\"         Player2: up-\"up arrow\", down-\"down arrow\"", True, WHITE)
+controls_message_x = WIDTH // 2 - controls_message.get_width() // 2
+controls_message_y = HEIGHT - controls_message.get_height()
+def main_menu(win):
     global main_screen, run, up, y
     while main_screen:
         #start_message(win, mes)
         if up:
             y -= speed
-        if y <= center_y - 25git :
+        if y <= center_y - 25:
             up = False
         if not up:
             y += speed
-        if y >= center_y + 25git :
+        if y >= center_y + 25:
             up = True
         win.blit(background_main_menu, (0, 0))
-        win.blit(mes, (x, y))
+        win.blit(main_screen_message, (x, y))
+        win.blit(controls_message, (controls_message_x, controls_message_y))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -63,7 +68,7 @@ pygame.mixer.music.play(-1)
 while run:
     clock.tick(FPS)
     keys = pygame.key.get_pressed()
-    main_menu(window, main_screen_message)
+    main_menu(window)
 
     p1.move(keys)
     p2.move(keys)
