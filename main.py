@@ -39,11 +39,11 @@ def main_menu(win, mes):
         #start_message(win, mes)
         if up:
             y -= speed
-        if y <= center_y - 25git :
+        if y <= center_y - 25:
             up = False
         if not up:
             y += speed
-        if y >= center_y + 25git :
+        if y >= center_y + 25:
             up = True
         win.blit(background_main_menu, (0, 0))
         win.blit(mes, (x, y))
