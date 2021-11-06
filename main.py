@@ -28,10 +28,26 @@ def start_message(win, mes):
     win.blit(mes, (WIDTH // 2 - mes.get_width() // 2, HEIGHT // 2 - mes.get_height() // 2))
     pygame.display.update()
 
+up = True
+x = WIDTH // 2 - main_screen_message.get_width() // 2
+y = HEIGHT // 2 - main_screen_message.get_height() // 2
+center_y = HEIGHT // 2 - main_screen_message.get_height() // 2
+speed = 0.5
 def main_menu(win, mes):
-    global main_screen, run
+    global main_screen, run, up, y
     while main_screen:
-        start_message(win, mes)
+        #start_message(win, mes)
+        if up:
+            y -= speed
+        if y <= center_y - 25git :
+            up = False
+        if not up:
+            y += speed
+        if y >= center_y + 25git :
+            up = True
+        win.blit(background_main_menu, (0, 0))
+        win.blit(mes, (x, y))
+        pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 main_screen = False
