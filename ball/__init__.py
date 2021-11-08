@@ -32,6 +32,7 @@ class Ball:
         self.x = WIDTH // 2 - self.width // 2
         self.y = HEIGHT // 2 - self.height // 2
         self.vel = 10
+        self.prev_vel = self.vel
         self.max_speed = 25
         self.angle = choice(angles)
         self.radians_angle = radians(self.angle)
@@ -97,7 +98,7 @@ class Ball:
 
     def move(self):
         self.is_off_screen()
-
+        #self.prev_vel = self.vel
         if self.overlap_p1():
             self.bounce()
             self.interacted_with_player2 = 0
@@ -144,18 +145,21 @@ class Ball:
             self.player2_score = 0
             self.win = True
 
-    def win_situation(self, win, keys):
+    def win_situation(self, keys, pause_index):
         if self.win:
             self.vel = 0
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] and pause_index == 0:
             self.win = False
             self.vel = 10
 
     def show(self, win):
         if self.win:
+            #if pause_index == 0:
             message = font.render("Press SPACE to continue playing", True, WHITE)
             win.blit(message, (WIDTH // 2 - message.get_width() // 2, HEIGHT // 2 - message.get_height() // 2))
             pygame.display.update()
+            #else:
+
         else:
             self.move()
             win.blit(self.pic, (self.x, self.y))
