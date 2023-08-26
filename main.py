@@ -69,7 +69,7 @@ def pause_game(event):
     if not main_screen:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_p:
-                if ball.vel != 0 and not (ball.overlap_p1() or ball.overlap_p2()):
+                if ball.vel != 0: #and not (ball.overlap_p1() or ball.overlap_p2()):
                     prev_ball_vel = ball.vel
                     ball_speed[0] = prev_ball_vel
                     #ball_speed[0] = ball.prev_vel

@@ -33,7 +33,7 @@ class Ball:
         self.y = HEIGHT // 2 - self.height // 2
         self.vel = 10
         self.prev_vel = self.vel
-        self.max_speed = 25
+        self.max_speed = 15
         self.angle = choice(angles)
         self.radians_angle = radians(self.angle)
         self.right = True
@@ -72,22 +72,27 @@ class Ball:
         return self.y <= 0 or self.y >= HEIGHT - self.height
 
     def overlap_p1(self):
-        offset_x_p1 = p1.x - self.x
+        offset_x_p1 = p1.x + p1.width // 2 - self.x
         offset_y_p1 = p1.y - self.y
+
         overlap_p1 = self.mask.overlap(masks[0], (int(offset_x_p1), int(offset_y_p1)))
         return overlap_p1 
 
     def overlap_p2(self):
-        offset_x_p2 = p2.x - self.x
+        offset_x_p2 = p2.x - p2.width - self.x
         offset_y_p2 = p2.y - self.y
+
         overlap_p2 = self.mask.overlap(masks[1], (int(offset_x_p2), int(offset_y_p2)))
         return overlap_p2
 
     def bounce(self):
-        if self.interacted_with_player1 == 1 or self.interacted_with_player2 == 1:
-            self.right = not self.right
-            self.vel += 0.5
-            self.vel = min(self.max_speed, self.vel)
+        if self.interacted_with_player1 == 1:
+            self.right = False
+        elif self.interacted_with_player2 == 1:
+            self.right = True
+
+        self.vel += 0.5
+        self.vel = min(self.max_speed, self.vel)
 
     def change_angle(self, player_num):
         if player_num == 1:
