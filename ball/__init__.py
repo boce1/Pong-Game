@@ -8,6 +8,7 @@ pygame.init()
 pygame.mixer.init()
 font = pygame.font.SysFont("Consolas", 50)
 boing_sound = pygame.mixer.Sound(".\\music\\Boing.wav")
+boing_sound.set_volume(0.5)
 
 masks = (pygame.mask.from_surface(p1.pic), pygame.mask.from_surface(p2.pic))
 
